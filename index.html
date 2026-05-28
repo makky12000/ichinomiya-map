@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>一宮神社マップ</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23f7f2e8'/%3E%3Cpath d='M14 18h36v6H14zM20 28h6v20h-6zM38 28h6v20h-6zM18 34h28v5H18z' fill='%23c93624'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">ICHINOMIYA SHRINE MAP</p>
+          <h1>一宮神社マップ</h1>
+        </div>
+        <div class="summary" aria-label="参拝状況">
+          <span id="visitedCount">0</span>
+          <small>参拝済み</small>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="map-panel" aria-label="一宮神社地図">
+          <div class="map-toolbar">
+            <label class="search-field">
+              <span>検索</span>
+              <input id="searchInput" type="search" placeholder="社名・旧国・地域・メモ">
+            </label>
+            <label class="filter-field">
+              <span>都道府県</span>
+              <select id="prefectureFilter" aria-label="都道府県で絞り込み">
+                <option value="all">全国</option>
+              </select>
+            </label>
+            <div class="segmented" role="group" aria-label="参拝フィルター">
+              <button class="segment active" type="button" data-filter="all">すべて</button>
+              <button class="segment" type="button" data-filter="open">未参拝</button>
+              <button class="segment" type="button" data-filter="visited">参拝済み</button>
+            </div>
+          </div>
+
+          <div class="map-wrap">
+            <div id="map" class="real-map" role="application" aria-label="日本地図と一宮神社"></div>
+          </div>
+          <p class="data-source" id="dataSource"></p>
+        </section>
+
+        <aside class="side-panel" aria-label="神社情報">
+          <section class="detail" id="detailPanel">
+            <p class="eyebrow">SELECTED SHRINE</p>
+            <h2 id="detailName">ピンか一覧から選択</h2>
+            <p id="detailAddress" class="muted">一宮神社を選ぶと、参拝メモを記録できます。</p>
+            <div class="meta-grid">
+              <div>
+                <span>旧国</span>
+                <strong id="detailProvince">-</strong>
+              </div>
+              <div>
+                <span>所在地</span>
+                <strong id="detailPrefecture">-</strong>
+              </div>
+              <div>
+                <span>地域</span>
+                <strong id="detailArea">-</strong>
+              </div>
+              <div>
+                <span>状態</span>
+                <strong id="detailStatus">-</strong>
+              </div>
+            </div>
+            <label class="check-row">
+              <input id="visitedToggle" type="checkbox" disabled>
+              <span>参拝済みにする</span>
+            </label>
+            <label class="note-field">
+              <span>メモ</span>
+              <textarea id="noteInput" rows="4" placeholder="参拝日、御朱印、境内で見たい場所など" disabled></textarea>
+            </label>
+          </section>
+
+          <section class="list-section">
+            <div class="section-heading">
+              <h2>一宮リスト</h2>
+              <span id="resultCount">0社</span>
+            </div>
+            <div class="shrine-list" id="shrineList"></div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
